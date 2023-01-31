@@ -4,6 +4,8 @@ from typing import Tuple
 from flask import Flask
 from flask import request, render_template, send_file
 from pdf2docx import parse
+import sys
+sys.path.append("../extern")
 
 UPLOADER_FOLDER = ''
 app = Flask(__name__)
