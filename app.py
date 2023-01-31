@@ -3,9 +3,8 @@ from typing import Tuple
 
 from flask import Flask
 from flask import request, render_template, send_file
-from pdf2docx import parse
-import sys
-sys.path.append("../extern")
+from pdf2docx.main import parse
+
 
 UPLOADER_FOLDER = ''
 app = Flask(__name__)
@@ -16,13 +15,13 @@ app.config['UPLOADER_FOLDER'] = UPLOADER_FOLDER
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-        def convert_pdf2docx(input_file: str, output_file: str, pages: Tuple = None):
+        def convert_pdf2docx(input_file1: str, output_file1: str, pages: Tuple = None):
             if pages:
                 pages = [int(i) for i in list(pages) if i.isnumeric()]
 
-            result = parse(pdf_file=input_file, docx_with_path=output_file, pages=pages)
+            result = parse(pdf_file=input_file1, docx_with_path=output_file1, pages=pages)
             summary = {
-                "File": input_file, "Pages": str(pages), "Output File": output_file
+                "File": input_file1, "Pages": str(pages), "Output File": output_file1
             }
 
             print("\n".join("{}:{}".format(i, j) for i, j in summary.items()))
